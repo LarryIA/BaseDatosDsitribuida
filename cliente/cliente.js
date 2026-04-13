@@ -36,25 +36,25 @@ function mostrarPanel(usuario, rol) {
 
     const adminPanel = document.getElementById('admin-panel');
     if (rol === 'admin') {
-        adminPanel.classList.remove('hidden'); // Solo el admin ve el formulario de registro
+        adminPanel.classList.remove('hidden');
     } else {
         adminPanel.classList.add('hidden');
     }
 
-    cargarDatos(); // Cargamos los datos de Mongo al entrar
+    cargarDatos(); 
 }
 
-// --- 3. CARGAR DATOS REALES DESDE MONGO ---
+// --- 3. CARGAR DATOS REALES ---
 async function cargarDatos() {
     try {
-        const respuesta = await fetch('http://172.16.1.250:3000/api/login');
+        // CORREGIDO: Antes decía /api/login, ahora dice /api/productos
+        const respuesta = await fetch('http://172.16.1.250:3000/api/productos');
         const productosReales = await respuesta.json();
 
         const tbody = document.getElementById('tabla-body');
         tbody.innerHTML = ''; 
 
         productosReales.forEach(dato => {
-            // Manejamos los nombres de campos de tus imágenes anteriores
             const fila = `
                 <tr>
                     <td><strong>${dato.producto || 'N/A'}</strong></td>
@@ -70,7 +70,7 @@ async function cargarDatos() {
     }
 }
 
-// --- 4. GUARDAR NUEVO EQUIPO EN MONGODB ---
+// --- 4. GUARDAR NUEVO EQUIPO ---
 async function agregarEquipo() {
     const nombre = document.getElementById('nuevo-producto').value;
     const estado = document.getElementById('nuevo-estado').value;
@@ -83,11 +83,12 @@ async function agregarEquipo() {
     const nuevoDato = {
         producto: nombre,
         estado: estado,
-        nodo_origen: "PC David (PRIMARY)" // Marcamos que salió de tu nodo
+        nodo_origen: "PC David (PRIMARY)"
     };
 
     try {
-        const respuesta = await fetch('http://localhost:3000/api/productos', {
+        // CORREGIDO: Cambiado 'localhost' por tu IP real '172.16.1.250'
+        const respuesta = await fetch('http://172.16.1.250:3000/api/productos', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(nuevoDato)
@@ -96,19 +97,16 @@ async function agregarEquipo() {
         const resultado = await respuesta.json();
 
         if (resultado.success) {
-            alert(" Guardado exitosamente en el Replica Set");
-            document.getElementById('nuevo-producto').value = ''; // Limpiar campo
-            cargarDatos(); // Refrescar la tabla automáticamente
-        } else {
-            alert(" Error al guardar: " + resultado.mensaje);
+            alert("Guardado exitosamente en el Replica Set");
+            document.getElementById('nuevo-producto').value = ''; 
+            cargarDatos(); 
         }
     } catch (error) {
-        console.error("Error al conectar con la API:", error);
-        alert("Error: No se pudo conectar con el servidor Node.js");
+        console.error("Error al conectar:", error);
+        alert("Error: No se pudo conectar con el servidor.");
     }
 }
 
-// --- 5. CERRAR SESIÓN ---
 function cerrarSesion() {
-    location.reload(); // Recarga la página para limpiar estados
+    location.reload();
 }
