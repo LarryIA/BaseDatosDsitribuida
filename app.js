@@ -63,6 +63,6 @@ app.post('/api/productos', async (req, res) => {
 });
 
 // 5. ARRANCAR SERVIDOR
-app.listen(3000, () => {
-    console.log(' Servidor corriendo en http://localhost:3000');
+app.listen(3000, "0.0.0.0",() => {
+    console.log(' Servidor abierto en la red en el puerto 5500');
 });

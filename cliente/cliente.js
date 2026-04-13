@@ -5,7 +5,7 @@ async function iniciarSesion() {
     const errorMsg = document.getElementById('login-error');
 
     try {
-        const respuesta = await fetch('http://172.16.1.250:3000/api/login', {
+        const respuesta = await fetch('https://caddie-monday-smite.ngrok-free.dev/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: user, password: pass })
@@ -48,7 +48,7 @@ function mostrarPanel(usuario, rol) {
 async function cargarDatos() {
     try {
         // CORREGIDO: Antes decía /api/login, ahora dice /api/productos
-        const respuesta = await fetch('http://172.16.1.250:3000/api/productos');
+        const respuesta = await fetch('https://caddie-monday-smite.ngrok-free.dev/api/login');
         const productosReales = await respuesta.json();
 
         const tbody = document.getElementById('tabla-body');
@@ -88,7 +88,7 @@ async function agregarEquipo() {
 
     try {
         // CORREGIDO: Cambiado 'localhost' por tu IP real '172.16.1.250'
-        const respuesta = await fetch('http://172.16.1.250:3000/api/productos', {
+        const respuesta = await fetch('https://caddie-monday-smite.ngrok-free.dev/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(nuevoDato)
