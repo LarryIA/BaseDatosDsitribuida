@@ -43,7 +43,16 @@
         <main>
             <div id="admin-panel" class="hidden">
                 <h3>Panel de Administración</h3>
-                <p>Como administrador, aquí podrías ver botones para agregar nuevos usuarios o modificar productos.</p>
+                <div class="form-container">
+                    <input type="text" id="nuevo-producto" placeholder="Nombre del Equipo">
+                    <select id="nuevo-estado">
+                        <option value="Activo">Activo</option>
+                        <option value="Stock">Stock</option>
+                        <option value="En espera">En espera</option>
+                        <option value="Dañado">Dañado</option>
+                    </select>
+                    <button onclick="agregarEquipo()" class="btn-add"> Agregar a MongoDB</button>
+                </div>
             </div>
 
             <div class="table-container">
