@@ -1,0 +1,51 @@
+/* === ESTILOS CSS (DISEÑO) === */
+:root {
+    --primary-color: #00684a; /* Verde MongoDB */
+    --secondary-color: #001e2b; /* Azul oscuro */
+    --background-color: #f5f7fa;
+    --surface-color: #ffffff;
+    --text-color: #333333;
+    --border-color: #e0e0e0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+body { background-color: var(--background-color); color: var(--text-color); height: 100vh; display: flex; flex-direction: column; }
+.hidden { display: none !important; }
+
+/* Pantalla de Login */
+#login-screen { display: flex; justify-content: center; align-items: center; height: 100vh; }
+.login-card { background: var(--surface-color); padding: 40px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
+.login-card h2 { color: var(--secondary-color); margin-bottom: 20px; }
+.input-group { margin-bottom: 20px; text-align: left; }
+.input-group label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 14px; }
+.input-group input { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 16px; transition: border-color 0.3s; }
+.input-group input:focus { border-color: var(--primary-color); outline: none; }
+button { background-color: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; font-size: 16px; cursor: pointer; width: 100%; font-weight: bold; transition: background-color 0.3s; }
+button:hover { background-color: #00593f; }
+#login-error { color: #d32f2f; margin-top: 15px; font-size: 14px; display: none; }
+
+/* Panel de Control (Dashboard) */
+#dashboard-screen { flex: 1; display: flex; flex-direction: column; }
+header { background-color: var(--secondary-color); color: white; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
+.user-info { font-size: 14px; opacity: 0.9; }
+#btn-logout { background-color: transparent; border: 1px solid white; width: auto; padding: 8px 16px; }
+#btn-logout:hover { background-color: rgba(255,255,255,0.1); }
+
+main { padding: 40px; max-width: 1200px; margin: 0 auto; width: 100%; }
+
+/* Panel Admin Exclusivo */
+#admin-panel { background-color: #e8f5e9; border: 1px solid #c8e6c9; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
+#admin-panel h3 { color: #2e7d32; margin-bottom: 10px; }
+#admin-panel p { font-size: 14px; color: #555; }
+
+/* Tabla de Inventario */
+.table-container { background: var(--surface-color); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: hidden; }
+.table-header { padding: 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 15px 20px; text-align: left; border-bottom: 1px solid var(--border-color); }
+th { background-color: #fafafa; color: var(--secondary-color); font-weight: 600; font-size: 14px; text-transform: uppercase; }
+tr:hover { background-color: #f9f9f9; }
+.badge { padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+.badge.activo { background-color: #e8f5e9; color: #2e7d32; }
+.badge.stock { background-color: #e3f2fd; color: #1565c0; }
+.badge.dañado { background-color: #ffebee; color: #c62828; }
