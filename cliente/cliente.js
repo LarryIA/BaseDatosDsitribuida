@@ -1,4 +1,4 @@
-// --- 1. LÓGICA DE LOGIN ---
+// --- 1. LÓGICA DE LOGIN (Esta estaba bien) ---
 async function iniciarSesion() {
     const user = document.getElementById('username').value;
     const pass = document.getElementById('password').value;
@@ -12,7 +12,6 @@ async function iniciarSesion() {
         });
 
         const datos = await respuesta.json();
-
         if (datos.success) {
             mostrarPanel(user, datos.rol);
         } else {
@@ -21,8 +20,6 @@ async function iniciarSesion() {
         }
     } catch (error) {
         console.error("Error en login:", error);
-        errorMsg.style.display = 'block';
-        errorMsg.innerText = "Error: El servidor Node.js no está corriendo.";
     }
 }
 
@@ -30,7 +27,6 @@ async function iniciarSesion() {
 function mostrarPanel(usuario, rol) {
     document.getElementById('login-screen').classList.add('hidden');
     document.getElementById('dashboard-screen').classList.remove('hidden');
-    
     document.getElementById('display-user').innerText = usuario;
     document.getElementById('display-rol').innerText = rol.toUpperCase();
 
@@ -40,15 +36,14 @@ function mostrarPanel(usuario, rol) {
     } else {
         adminPanel.classList.add('hidden');
     }
-
     cargarDatos(); 
 }
 
-// --- 3. CARGAR DATOS REALES ---
+// --- 3. CARGAR DATOS REALES (CORREGIDO) ---
 async function cargarDatos() {
     try {
-        // CORREGIDO: Antes decía /api/login, ahora dice /api/productos
-        const respuesta = await fetch('https://caddie-monday-smite.ngrok-free.dev/api/login');
+        // AQUÍ ESTABA EL ERROR: Tenías /api/login
+        const respuesta = await fetch('https://caddie-monday-smite.ngrok-free.dev/api/productos');
         const productosReales = await respuesta.json();
 
         const tbody = document.getElementById('tabla-body');
@@ -70,15 +65,12 @@ async function cargarDatos() {
     }
 }
 
-// --- 4. GUARDAR NUEVO EQUIPO ---
+// --- 4. GUARDAR NUEVO EQUIPO (CORREGIDO) ---
 async function agregarEquipo() {
     const nombre = document.getElementById('nuevo-producto').value;
     const estado = document.getElementById('nuevo-estado').value;
 
-    if (!nombre) {
-        alert("Por favor, escribe el nombre del equipo.");
-        return;
-    }
+    if (!nombre) return alert("Por favor, escribe el nombre del equipo.");
 
     const nuevoDato = {
         producto: nombre,
@@ -87,23 +79,21 @@ async function agregarEquipo() {
     };
 
     try {
-        // CORREGIDO: Cambiado 'localhost' por tu IP real '172.16.1.250'
-        const respuesta = await fetch('https://caddie-monday-smite.ngrok-free.dev/api/login', {
+        // AQUÍ TAMBIÉN ESTABA EL ERROR: Tenías /api/login
+        const respuesta = await fetch('https://caddie-monday-smite.ngrok-free.dev/api/productos', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(nuevoDato)
         });
 
         const resultado = await respuesta.json();
-
         if (resultado.success) {
-            alert("Guardado exitosamente en el Replica Set");
+            alert("✅ Guardado exitosamente en el Replica Set");
             document.getElementById('nuevo-producto').value = ''; 
             cargarDatos(); 
         }
     } catch (error) {
         console.error("Error al conectar:", error);
-        alert("Error: No se pudo conectar con el servidor.");
     }
 }
 
