@@ -40,9 +40,10 @@ function mostrarPanel(usuario, rol) {
 }
 
 // --- 3. CARGAR DATOS REALES (CORREGIDO) ---
+// --- 3. CARGAR DATOS REALES ---
 async function cargarDatos() {
     try {
-        // AQUÍ ESTABA EL ERROR: Tenías /api/login
+        // 👇 ASEGÚRATE DE QUE ESTA LÍNEA TENGA TU LINK DE NGROK Y TERMINE EN /api/productos
         const respuesta = await fetch('https://caddie-monday-smite.ngrok-free.dev/api/productos');
         const productosReales = await respuesta.json();
 
