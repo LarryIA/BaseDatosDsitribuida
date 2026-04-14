@@ -39,24 +39,33 @@ function mostrarPanel(usuario, rol) {
     cargarDatos(); 
 }
 
-// --- 3. CARGAR DATOS REALES (CORREGIDO) ---
+-
 // --- 3. CARGAR DATOS REALES ---
 async function cargarDatos() {
     try {
-        // 👇 ASEGÚRATE DE QUE ESTA LÍNEA TENGA TU LINK DE NGROK Y TERMINE EN /api/productos
-        const respuesta = await fetch('https://caddie-monday-smite.ngrok-free.dev/api/productos');
+        const respuesta = await fetch('https://caddie-monday-smite.ngrok-free.dev/api/productos', {
+            method: 'GET',
+            headers: {
+                // ESTA ES LA LLAVE MÁGICA PARA SALTARSE LA PANTALLA DE NGROK
+                'ngrok-skip-browser-warning': 'true' 
+            }
+        });
+        
         const productosReales = await respuesta.json();
 
         const tbody = document.getElementById('tabla-body');
         tbody.innerHTML = ''; 
 
         productosReales.forEach(dato => {
+            // Este truco unifica las fechas sin importar si en tu Mongo dice 'fecha' o 'timestamp'
+            const fechaReal = dato.fecha || dato.timestamp;
+
             const fila = `
                 <tr>
                     <td><strong>${dato.producto || 'N/A'}</strong></td>
                     <td><span class="badge ${(dato.estado || 'stock').toLowerCase()}">${dato.estado || 'Stock'}</span></td>
                     <td>${dato.nodo_origen || 'Nodo Local'}</td>
-                    <td>${dato.fecha ? new Date(dato.fecha).toLocaleDateString() : 'Sin fecha'}</td>
+                    <td>${fechaReal ? new Date(fechaReal).toLocaleDateString() : 'Sin fecha'}</td>
                 </tr>
             `;
             tbody.innerHTML += fila;
@@ -65,7 +74,6 @@ async function cargarDatos() {
         console.error("Error cargando datos de Mongo:", error);
     }
 }
-
 // --- 4. GUARDAR NUEVO EQUIPO (CORREGIDO) ---
 async function agregarEquipo() {
     const nombre = document.getElementById('nuevo-producto').value;
