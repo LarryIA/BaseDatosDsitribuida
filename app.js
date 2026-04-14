@@ -1,10 +1,10 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'); // <--- ¡Asegúrate de que esta línea esté aquí!
 const cors = require('cors');
-
 const app = express();
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
+
 
 // 1. CONFIGURACIÓN DE LA CONEXIÓN
 const mongoURI = "mongodb://172.16.1.250:27017,172.16.0.64:27017/proyectoMongoDB?replicaSet=rs-distribuida";
@@ -64,5 +64,5 @@ app.post('/api/productos', async (req, res) => {
 
 // 5. ARRANCAR SERVIDOR
 app.listen(3000, "0.0.0.0",() => {
-    console.log(' Servidor abierto en la red en el puerto 5500');
+    console.log(' Servidor abierto en la red en el puerto 3000');
 });

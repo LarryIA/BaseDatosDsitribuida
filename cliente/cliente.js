@@ -88,7 +88,7 @@ async function agregarEquipo() {
 
         const resultado = await respuesta.json();
         if (resultado.success) {
-            alert("✅ Guardado exitosamente en el Replica Set");
+            alert("Guardado exitosamente en el Replica Set");
             document.getElementById('nuevo-producto').value = ''; 
             cargarDatos(); 
         }
