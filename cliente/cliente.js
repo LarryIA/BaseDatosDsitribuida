@@ -1,4 +1,4 @@
-// --- 1. LÓGICA DE LOGIN (Esta estaba bien) ---
+// --- 1. LÓGICA DE LOGIN ---
 async function iniciarSesion() {
     const user = document.getElementById('username').value;
     const pass = document.getElementById('password').value;
@@ -7,7 +7,10 @@ async function iniciarSesion() {
     try {
         const respuesta = await fetch('https://caddie-monday-smite.ngrok-free.dev/api/login', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'true' // Pase VIP
+            },
             body: JSON.stringify({ username: user, password: pass })
         });
 
@@ -39,15 +42,13 @@ function mostrarPanel(usuario, rol) {
     cargarDatos(); 
 }
 
--
 // --- 3. CARGAR DATOS REALES ---
 async function cargarDatos() {
     try {
         const respuesta = await fetch('https://caddie-monday-smite.ngrok-free.dev/api/productos', {
             method: 'GET',
             headers: {
-                // ESTA ES LA LLAVE MÁGICA PARA SALTARSE LA PANTALLA DE NGROK
-                'ngrok-skip-browser-warning': 'true' 
+                'ngrok-skip-browser-warning': 'true' // Pase VIP
             }
         });
         
@@ -74,7 +75,8 @@ async function cargarDatos() {
         console.error("Error cargando datos de Mongo:", error);
     }
 }
-// --- 4. GUARDAR NUEVO EQUIPO (CORREGIDO) ---
+
+// --- 4. GUARDAR NUEVO EQUIPO ---
 async function agregarEquipo() {
     const nombre = document.getElementById('nuevo-producto').value;
     const estado = document.getElementById('nuevo-estado').value;
@@ -88,10 +90,12 @@ async function agregarEquipo() {
     };
 
     try {
-        // AQUÍ TAMBIÉN ESTABA EL ERROR: Tenías /api/login
         const respuesta = await fetch('https://caddie-monday-smite.ngrok-free.dev/api/productos', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'true' // Pase VIP
+            },
             body: JSON.stringify(nuevoDato)
         });
 
